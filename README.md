@@ -1,15 +1,16 @@
 # XdwToPdf (DocuWorks to PDF Converter)
 
-Fujifilm DocuWorks ファイル (`.xdw`) を簡単に PDF 形式へ一括変換する Windows 向けデスクトップアプリケーションです。
+Fujifilm DocuWorks ファイル (`.xdw`) を PDF 形式へ一括変換する Windows 向けデスクトップアプリケーションです。
 
 ---
 
 ## 🌟 主な特徴
 
-- **ドラッグ＆ドロップ対応**: ファイルやフォルダを画面にドラッグするだけで簡単にリスト追加できます。
+- **ドラッグ＆ドロップ対応**: ファイルやフォルダを画面にドラッグ＆ドロップするだけで簡単にリスト追加できます。
 - **一括・個別変換に対応**: 1ファイル選択時は保存先・ファイル名を個別指定、複数ファイル選択時は保存先フォルダを一括指定して高速変換できます。
-- **自動アップデート機能**: [Velopack](https://velopack.io/) を搭載しており、アプリを起動したままワンクリックで最新バージョンへ更新可能です。
-- **安全な事前環境判定**: 起動時および変換実行時に DocuWorks 実行環境の有無を判定し、予期せぬクラッシュを防止します。
+- **標準プリンタ連携**: Microsoft Print to PDF を利用して変換を行うため、環境に依存せず安定した処理が可能です。
+- **起動時自動アップデート**: [Velopack](https://velopack.io/) を搭載。アプリ起動時に最新バージョンを自動チェックし、ワンクリックで最新版へ更新・再起動できます。
+- **二重起動防止**: ミューテックス（Mutex）制御により、アプリの複数同時起動によるコンフリクトや予期せぬ動作を防止します。
 
 ---
 
@@ -18,19 +19,15 @@ Fujifilm DocuWorks ファイル (`.xdw`) を簡単に PDF 形式へ一括変換�
 | 項目 | 要件 |
 | :--- | :--- |
 | **対応OS** | Windows 10 / Windows 11 (64-bit) |
-| **必須ソフトウェア** | **DocuWorks** または **DocuWorks Viewer Light**<br>*(※ API モジュール `xxdwapi.dll` を使用するため、PC 側にインストールされている必要があります)* |
-| **.NET ランタイム** | 不要 (Self-Contained パッケージのため単体で動作します) |
-
-> [!CAUTION]
-> **DocuWorks がインストールされていない環境での注意点**  
-> 本アプリは DocuWorks の公式 API (`xxdwapi.dll`) に依存しています。DocuWorks 関連製品がインストールされていない PC では、起動時および変換実行時に「環境エラー」の警告ダイアログが表示され、変換処理を行うことはできません。
+| **必須機能** | **Microsoft Print to PDF**（Windows 標準機能） |
+| **.NET ランタイム** | .NET 8.0 Desktop Runtime |
 
 ---
 
 ## 🚀 インストール手順
 
-1. [Releases](../../releases) ページから最新の `Setup.exe` (または `XdwToPdf-X.X.X-Setup.exe`) をダウンロードします。
-2. ダウンロードした `Setup.exe` をダブルクリックして実行します。
+1. [Releases](../../releases) ページから最新の `XdwToPdfSetup.exe` をダウンロードします。
+2. ダウンロードした `XdwToPdfSetup.exe` をダブルクリックして実行します。
 3. 自動的にインストールが完了し、デスクトップおよびスタートメニューにショートカットが生成されます。
 
 > [!NOTE]
@@ -54,14 +51,15 @@ Fujifilm DocuWorks ファイル (`.xdw`) を簡単に PDF 形式へ一括変換�
 
 ---
 
-## 🔄 アプリの更新方法
+## 🔄 アプリの更新（アップデート）
 
-画面内の **「アップデートを確認」** ボタンをクリックすると、GitHub 経由で最新リリースを自動チェックします。新しいバージョンが存在する場合は、そのままダウンロード＆再起動して更新が適用されます。
+アプリ起動時に自動で最新リリースをチェックします。新バージョンが検出された場合は更新確認ダイアログが表示され、**「はい」** を選択するだけで自動ダウンロード＆再起動が行われ、最新版へ更新されます。
 
 ---
 
 ## 🛠️ 技術構成 (Tech Stack)
 
 - **Framework**: .NET 8 (WPF)
-- **API Interop**: P/Invoke (`xxdwapi.dll` / `kernel32.dll`)
+- **Architecture**: Single-Instance App (`System.Threading.Mutex`)
+- **Print Engine**: Microsoft Print to PDF
 - **Deployment & Update**: Velopack + GitHub Actions CI/CD
