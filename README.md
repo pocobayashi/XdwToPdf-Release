@@ -8,19 +8,26 @@ Fujifilm DocuWorks ファイル (`.xdw`) を PDF 形式へ一括変換する Win
 
 - **ドラッグ＆ドロップ対応**: ファイルやフォルダを画面にドラッグ＆ドロップするだけで簡単にリスト追加できます。
 - **一括・個別変換に対応**: 1ファイル選択時は保存先・ファイル名を個別指定、複数ファイル選択時は保存先フォルダを一括指定して高速変換できます。
-- **標準プリンタ連携**: Microsoft Print to PDF を利用して変換を行うため、環境に依存せず安定した処理が可能です。
+- **DocuWorks 印刷連携**: Windows の印刷エンジンおよび Microsoft Print to PDF と連携し、忠実に PDF へ出力します。
 - **起動時自動アップデート**: [Velopack](https://velopack.io/) を搭載。アプリ起動時に最新バージョンを自動チェックし、ワンクリックで最新版へ更新・再起動できます。
 - **二重起動防止**: ミューテックス（Mutex）制御により、アプリの複数同時起動によるコンフリクトや予期せぬ動作を防止します。
 
 ---
 
-## 💻 動作環境
+## 💻 動作環境・前提条件
+
+本アプリは、PCにインストールされた DocuWorks の印刷機能（関連付け）を利用して PDF を生成します。そのため、**実行するPCに DocuWorks 環境が必須**となります。
 
 | 項目 | 要件 |
 | :--- | :--- |
 | **対応OS** | Windows 10 / Windows 11 (64-bit) |
-| **必須機能** | **Microsoft Print to PDF**（Windows 標準機能） |
+| **必須ソフトウェア** | **富士フイルム DocuWorks**（製品版）<br>または **DocuWorks Viewer Light**（[公式無料ビューア](https://www.fujifilm.com/fb/support/software/docuworks)） |
+| **必須Windows機能** | **Microsoft Print to PDF**（Windows 標準機能） |
 | **.NET ランタイム** | .NET 8.0 Desktop Runtime |
+
+> [!IMPORTANT]
+> **DocuWorks が未インストールの環境について**  
+> `.xdw` は富士フイルム独自のファイル形式であるため、DocuWorks（または無料の Viewer Light）がインストールされていない PC では `.xdw` の解析・印刷が行えず、変換が失敗します。必ず事前にインストールをお願いいたします。
 
 ---
 
@@ -61,5 +68,11 @@ Fujifilm DocuWorks ファイル (`.xdw`) を PDF 形式へ一括変換する Win
 
 - **Framework**: .NET 8 (WPF)
 - **Architecture**: Single-Instance App (`System.Threading.Mutex`)
-- **Print Engine**: Microsoft Print to PDF
+- **Print Engine**: ShellExecute (`print` / `printto`) + Microsoft Print to PDF
 - **Deployment & Update**: Velopack + GitHub Actions CI/CD
+
+---
+
+## 📄 ライセンス
+
+本ソフトウェアは [MIT License](LICENSE) のもとで公開されています。
