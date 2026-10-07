@@ -71,8 +71,4 @@ Fujifilm DocuWorks ファイル (`.xdw`) を PDF 形式へ一括変換する Win
 - **Print Engine**: ShellExecute (`print` / `printto`) + Microsoft Print to PDF
 - **Deployment & Update**: Velopack + GitHub Actions CI/CD
 
----
 
-## 📄 ライセンス
-
-本ソフトウェアは [MIT License](LICENSE) のもとで公開されています。
